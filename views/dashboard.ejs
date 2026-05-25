@@ -1,0 +1,6 @@
+<%- include('layout', { title: 'Dashboard', user: user, body: `
+  <h2>Dashboard</h2>
+  <p>Welcome back, <strong><%= user.name || user.email %></strong>!</p>
+  <p>Your role: <strong><%= user.role %></strong></p>
+  <p><a href="/courses">Browse courses</a> or <a href="/auth/logout">Logout</a>.</p>
+` }) %>

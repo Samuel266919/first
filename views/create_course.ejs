@@ -1,0 +1,9 @@
+<%- include('layout', { title: 'Create Course', user: user, body: `
+  <h2>Create Course</h2>
+  <%- include('partials/errors', { errors: errors || [] }) %>
+  <form method="post" action="/courses/create">
+    <label>Title <input name="title" required value="${values?.title || ''}"></label><br>
+    <label>Description <textarea name="description">${values?.description || ''}</textarea></label><br>
+    <button>Create</button>
+  </form>
+` }) %>

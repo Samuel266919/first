@@ -1,0 +1,23 @@
+<%- include('layout', { title: course.title, user: user, body: `
+  <h2><%= course.title %></h2>
+  <p><%= course.description %></p>
+  <% if (user && (user.role === 'lecturer' || user.role === 'admin')) { %>
+    <% if (user.role === 'admin' || user.id === course.author_id) { %>
+      <a href="/courses/<%= course.id %>/edit">Edit Course</a>
+    <% } %>
+    <a href="/courses/<%= course.id %>/lessons/create">Create Lesson</a>
+  <% } %>
+  <h3>Lessons</h3>
+  <ul>
+    <% lessons.forEach(l => { %>
+      <li>
+        <a href="/courses/<%= course.id %>/lessons/<%= l.id %>"><%= l.title %></a>
+        <% if (user && (user.role === 'lecturer' || user.role === 'admin')) { %>
+          <% if (user.role === 'admin' || user.id === course.author_id) { %>
+            | <a href="/courses/<%= course.id %>/lessons/<%= l.id %>/edit">Edit</a>
+          <% } %>
+        <% } %>
+      </li>
+    <% }) %>
+  </ul>
+` }) %>
