@@ -1,0 +1,18 @@
+<%- include('layout', { title: 'Courses', user: user, body: `
+  <h2>Courses</h2>
+  <% if (user && (user.role === 'lecturer' || user.role === 'admin')) { %>
+    <a href="/courses/create">Create Course</a>
+  <% } %>
+  <ul>
+    <% courses.forEach(c => { %>
+      <li>
+        <a href="/courses/<%= c.id %>"><%= c.title %></a> by <%= c.author %>
+        <% if (user && (user.role === 'lecturer' || user.role === 'admin')) { %>
+          <% if (user.role === 'admin' || user.id === c.author_id) { %>
+            | <a href="/courses/<%= c.id %>/edit">Edit</a>
+          <% } %>
+        <% } %>
+      </li>
+    <% }) %>
+  </ul>
+` }) %>

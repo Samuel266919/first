@@ -1,0 +1,9 @@
+<%- include('layout', { title: 'Create Lesson', user: user, body: `
+  <h2>Create Lesson for: ${course.title}</h2>
+  <%- include('partials/errors', { errors: errors || [] }) %>
+  <form method="post" action="/courses/${course.id}/lessons/create">
+    <label>Title <input name="title" required value="${values?.title || ''}"></label><br>
+    <label>Content <textarea name="content" rows="10">${values?.content || ''}</textarea></label><br>
+    <button>Create Lesson</button>
+  </form>
+` }) %>

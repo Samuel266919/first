@@ -1,0 +1,11 @@
+<%- include('layout', { title: 'Register', user: null, body: `
+  <h2>Register</h2>
+  <%- include('partials/errors', { errors: errors || [] }) %>
+  <form method="post" action="/auth/register">
+    <label>Name <input name="name" type="text" value="${values?.name || ''}"></label><br>
+    <label>Email <input name="email" type="email" required value="${values?.email || ''}"></label><br>
+    <label>Password <input name="password" type="password" required></label><br>
+    <label>Role <select name="role"><option value="student" ${values?.role === 'student' ? 'selected' : ''}>Student</option><option value="lecturer" ${values?.role === 'lecturer' ? 'selected' : ''}>Lecturer</option></select></label><br>
+    <button>Register</button>
+  </form>
+` }) %>

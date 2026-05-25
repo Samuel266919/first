@@ -1,0 +1,6 @@
+body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:0}
+header{background:#222;color:#fff;padding:10px}
+header a{color:#fff;margin-right:10px}
+main{padding:20px}
+.errors{background:#fee;border:1px solid #e6a1a1;color:#811;max-width:700px;padding:10px;margin-bottom:1rem}
+.errors ul{margin:0;padding-left:20px}

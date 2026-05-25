@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title><%= title || 'E-Learning' %></title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> | <a href="/courses">Courses</a>
+      <% if (user) { %>
+        | <a href="/dashboard">Dashboard</a> | <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        | <a href="/auth/login">Login</a> | <a href="/auth/register">Register</a>
+      <% } %>
+    </header>
+    <main>
+      <%- body %>
+    </main>
+  </body>
+</html>

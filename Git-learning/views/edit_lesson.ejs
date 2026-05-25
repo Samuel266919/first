@@ -1,0 +1,12 @@
+<%- include('layout', { title: 'Edit Lesson', user: user, body: `
+  <h2>Edit Lesson</h2>
+  <%- include('partials/errors', { errors: errors || [] }) %>
+  <form method="post" action="/courses/${lesson.course_id}/lessons/${lesson.id}/edit">
+    <label>Title <input name="title" value="${lesson.title || values?.title || ''}" required></label><br>
+    <label>Content <textarea name="content" rows="10">${lesson.content || values?.content || ''}</textarea></label><br>
+    <button>Save</button>
+  </form>
+  <form method="post" action="/courses/${lesson.course_id}/lessons/${lesson.id}/delete" onsubmit="return confirm('Delete this lesson?')">
+    <button style="background:#c33;color:#fff;margin-top:10px">Delete Lesson</button>
+  </form>
+` }) %>

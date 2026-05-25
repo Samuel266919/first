@@ -1,0 +1,12 @@
+<%- include('layout', { title: 'Edit Course', user: user, body: `
+  <h2>Edit Course</h2>
+  <%- include('partials/errors', { errors: errors || [] }) %>
+  <form method="post" action="/courses/${course.id}/edit">
+    <label>Title <input name="title" value="${course.title || values?.title || ''}" required></label><br>
+    <label>Description <textarea name="description">${course.description || values?.description || ''}</textarea></label><br>
+    <button>Save</button>
+  </form>
+  <form method="post" action="/courses/${course.id}/delete" onsubmit="return confirm('Delete this course?')">
+    <button style="background:#c33;color:#fff;margin-top:10px">Delete Course</button>
+  </form>
+` }) %>
