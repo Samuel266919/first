@@ -14,8 +14,8 @@ const cookieOptions = {
   maxAge: 8 * 60 * 60 * 1000,
 }
 
-router.get('/register', (req, res) => res.render('register', { errors: [], values: {} }))
-router.get('/login', (req, res) => res.render('login', { errors: [], values: {} }))
+router.get('/register', (req, res) => res.render('register', { errors: [], values: {}, user: null }))
+router.get('/login', (req, res) => res.render('login', { errors: [], values: {}, user: null }))
 
 router.post('/register',
   body('name').trim().escape().optional({ checkFalsy: true }),
@@ -26,7 +26,7 @@ router.post('/register',
     const errors = validationResult(req)
     const values = { name: req.body.name || '', email: req.body.email || '', role: req.body.role || 'student' }
     if (!errors.isEmpty()) {
-      return res.status(400).render('register', { errors: errors.array(), values })
+      return res.status(400).render('register', { errors: errors.array(), values, user: null })
     }
     const { name, email, password, role } = req.body
     const db = getDb()
@@ -38,7 +38,7 @@ router.post('/register',
       res.cookie('token', token, cookieOptions)
       res.redirect('/dashboard')
     } catch (err) {
-      return res.status(400).render('register', { errors: [{ msg: 'User already exists or registration error' }], values })
+      return res.status(400).render('register', { errors: [{ msg: 'User already exists or registration error' }], values, user: null })
     }
   }
 )
@@ -50,14 +50,14 @@ router.post('/login',
     const errors = validationResult(req)
     const values = { email: req.body.email || '' }
     if (!errors.isEmpty()) {
-      return res.status(400).render('login', { errors: errors.array(), values })
+      return res.status(400).render('login', { errors: errors.array(), values, user: null })
     }
     const { email, password } = req.body
     const db = getDb()
     const user = await db.get('SELECT * FROM users WHERE email = ?', email)
-    if (!user) return res.status(400).render('login', { errors: [{ msg: 'Invalid email or password' }], values })
+    if (!user) return res.status(400).render('login', { errors: [{ msg: 'Invalid email or password' }], values, user: null })
     const ok = await bcrypt.compare(password, user.password)
-    if (!ok) return res.status(400).render('login', { errors: [{ msg: 'Invalid email or password' }], values })
+    if (!ok) return res.status(400).render('login', { errors: [{ msg: 'Invalid email or password' }], values, user: null })
     const token = jwt.sign({ id: user.id }, JWT_SECRET, { expiresIn: '8h' })
     res.cookie('token', token, cookieOptions)
     res.redirect('/dashboard')

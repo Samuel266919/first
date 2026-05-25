@@ -1,18 +1,36 @@
-<%- include('layout', { title: 'Courses', user: user, body: `
-  <h2>Courses</h2>
-  <% if (user && (user.role === 'lecturer' || user.role === 'admin')) { %>
-    <a href="/courses/create">Create Course</a>
-  <% } %>
-  <ul>
-    <% courses.forEach(c => { %>
-      <li>
-        <a href="/courses/<%= c.id %>"><%= c.title %></a> by <%= c.author %>
-        <% if (user && (user.role === 'lecturer' || user.role === 'admin')) { %>
-          <% if (user.role === 'admin' || user.id === c.author_id) { %>
-            | <a href="/courses/<%= c.id %>/edit">Edit</a>
-          <% } %>
-        <% } %>
-      </li>
-    <% }) %>
-  </ul>
-` }) %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Courses</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="/">Home</a> | <a href="/courses">Courses</a>
+      <% if (user) { %>
+        | <a href="/dashboard">Dashboard</a> | <a href="/auth/logout">Logout</a>
+      <% } else { %>
+        | <a href="/auth/login">Login</a> | <a href="/auth/register">Register</a>
+      <% } %>
+    </header>
+    <main>
+      <h2>Courses</h2>
+      <% if (user && (user.role === 'lecturer' || user.role === 'admin')) { %>
+        <a href="/courses/create">Create Course</a>
+      <% } %>
+      <ul>
+        <% courses.forEach(c => { %>
+          <li>
+            <a href="/courses/<%= c.id %>"><%= c.title %></a> by <%= c.author %>
+            <% if (user && (user.role === 'lecturer' || user.role === 'admin') && (user.role === 'admin' || user.id === c.author_id)) { %>
+              | <a href="/courses/<%= c.id %>/edit">Edit</a>
+            <% } %>
+          </li>
+        <% }) %>
+      </ul>
+    </main>
+  </body>
+</html>
+
